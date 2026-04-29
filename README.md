@@ -1,14 +1,16 @@
 # xiaomei-skill
-小妹技能包 | 专注情感陪伴与人格模拟的小妹人设型 OpenClaw 原生拟人 Agent 技能包，人格稳定、轻量化陪伴交互
-Xiaomei Skill | An OpenClaw-native anthropomorphic Agent skill package with a little sister persona, dedicated to emotional companionship and personality simulation, featuring stable character and lightweight interactive companionship.
+- 小妹技能包 | 专注情感陪伴与人格模拟的小妹人设型 OpenClaw 原生拟人 Agent 技能包，人格稳定、轻量化陪伴交互
+- Xiaomei Skill | An OpenClaw-native anthropomorphic Agent skill package with a little sister persona, dedicated to emotional companionship and personality simulation, featuring stable character and lightweight interactive companionship.
 ---
 
 ## 项目简介 Introduction
-**中文：**
+
+### **中文：**
 一款寄生式 Agent 技能包，面向 OpenClaw 及主流 Agent 平台，主打**情感陪伴、拟人人格模拟**，定位为成人向虚拟伴侣。
 采用自研三轮 LLM 调用架构、三级记忆+艾宾浩斯机制、全链路结构化调试日志与双重防OOC锁体系，人格稳定不漂移，主打软萌治愈系妹妹陪伴定位，100%本地运行可控，隐私无泄露风险。
 目前处于**公开测试阶段**，持续迭代优化中。
-**English:**
+
+### **English:**
 A parasitic Agent skill package for OpenClaw and mainstream Agent platforms, focusing on **emotional companionship and anthropomorphic personality simulation**, positioned as an adult-oriented virtual companion.
 Adopting self-developed three-round LLM call architecture, three-level memory + Ebbinghaus mechanism, full-link structured debug logs and double anti-OOC lock system, stable personality without drift, focusing on soft and cute healing companion positioning, 100% local operation controllable, no privacy leakage risk.
 Currently in **public testing phase**, continuously iterating and optimizing.
