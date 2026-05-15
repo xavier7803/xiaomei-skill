@@ -50,7 +50,7 @@ user-invocable: true
 
 ## 📦 安装
 
-> **前置要求：** OpenClaw ≥ 2026.4.10 · Python ≥ 3.8 · DeepSeek API Key（可选，无 Key 时自动降级为语料库模式）
+> **前置要求：** OpenClaw ≥ 2026.4.10 · Python ≥ 3.8 · LLM API Key（可选，由 Agent 配置自动继承；无 Key 时降级为语料库模式）
 
 ### 方式一：安装脚本（推荐）
 
@@ -88,7 +88,7 @@ openclaw gateway restart
   "name": "小妹🥰",
   "workspace": "/home/YOUR_USER/openclaw/workspace/xiaomei",
   "agentDir": "/home/YOUR_USER/.openclaw/agents/xiaomei",
-  "model": "deepseek/deepseek-v4-flash",
+  "model": "你的Agent模型（由OpenClaw配置自动读取）",
   "identity": {
     "name": "小妹",
     "emoji": "🥰",
@@ -279,7 +279,7 @@ xiaomei/
 ## 🙏 致谢
 
 - [OpenClaw](https://github.com/openclaw/openclaw) — Agent 运行平台
-- [DeepSeek](https://deepseek.com) — LLM API 服务
+- LLM API 服务 — 通用 OpenAI 兼容，由 Agent 配置自动选择
 
 ---
 

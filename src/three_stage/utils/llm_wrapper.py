@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-三轮LLM调用封装 v0.8.0
-- [1] health_check: LLM连通性检测
-- [2] 第一轮 = 总指挥官（唯一入口）：场景ID + 核心目的 + 关键词 + 情绪 + 好感度 + 礼物 + 粗鲁 + 私密度
-- [4] 第二轮：记忆筛选
-- [6] 第三轮：统一话术生成（含拦截回复模式）
+三轮LLM调用封装 v0.9.0
+- 通用 OpenAI 兼容 API 适配（不绑定任何特定厂商）
+- 从环境变量读取：XIAOMEI_API_KEY / XIAOMEI_API_BASE / XIAOMEI_MODEL
+- 无 Key 时自动降级为本地语料库模式
 """
 import os
 import json
@@ -27,9 +26,17 @@ class LLMWrapper:
         self.healthy = True
         self._last_health_check = 0
         self._health_cache_ttl = 30
+        # ── 从环境变量读取 LLM 配置（由 main.py 在启动时注入）──
+        self.api_key = os.environ.get("XIAOMEI_API_KEY", "")
+        self.api_base = os.environ.get("XIAOMEI_API_BASE", "")
+        self.model = os.environ.get("XIAOMEI_MODEL", "")
         # ── 可追溯：存储最近一轮的 prompt 和 raw result ──
         self._last_prompt: Optional[str] = None
         self._last_raw_result: Optional[str] = None
+
+    def _llm_available(self) -> bool:
+        """检查 LLM 是否可用（有 Key + base URL + model）"""
+        return bool(self.api_key and self.api_base and self.model)
 
     # ═══════════════ [1] LLM连通性检测 ═══════════════
 
@@ -39,22 +46,22 @@ class LLMWrapper:
         if now - self._last_health_check < self._health_cache_ttl:
             return self.healthy
         self._last_health_check = now
+        if not self._llm_available():
+            self.healthy = False
+            return False
         try:
             import urllib.request
-            api_key = os.environ.get("DEEPSEEK_API_KEY", "")
-            if not api_key:
-                self.healthy = False
-                return False
+            chat_url = self.api_base.rstrip("/") + "/chat/completions"
             req = urllib.request.Request(
-                "https://api.deepseek.com/v1/chat/completions",
+                chat_url,
                 data=json.dumps({
-                    "model": "deepseek-chat",
+                    "model": self.model,
                     "messages": [{"role": "user", "content": "ping"}],
                     "max_tokens": 1,
                 }).encode("utf-8"),
                 headers={
                     "Content-Type": "application/json",
-                    "Authorization": f"Bearer {api_key}",
+                    "Authorization": f"Bearer {self.api_key}",
                 },
             )
             urllib.request.urlopen(req, timeout=3)
@@ -68,32 +75,33 @@ class LLMWrapper:
         config = ROUND_CONFIG[round_type]
         self._last_prompt = prompt
         self._last_raw_result = None
+
+        if not self._llm_available():
+            self._last_raw_result = "{}"
+            return "{}"
+
         for retry in range(MAX_RETRY + 1):
             try:
                 import urllib.request
-                api_key = os.environ.get("DEEPSEEK_API_KEY", "")
-                if api_key:
-                    req = urllib.request.Request(
-                        "https://api.deepseek.com/v1/chat/completions",
-                        data=json.dumps({
-                            "model": "deepseek-chat",
-                            "messages": [{"role": "user", "content": prompt}],
-                            "temperature": config["temperature"],
-                            "max_tokens": config["max_tokens"],
-                        }).encode("utf-8"),
-                        headers={
-                            "Content-Type": "application/json",
-                            "Authorization": f"Bearer {api_key}",
-                        },
-                    )
-                    resp = urllib.request.urlopen(req, timeout=config["timeout"])
-                    data = json.loads(resp.read().decode("utf-8"))
-                    raw = data["choices"][0]["message"]["content"].strip()
-                    self._last_raw_result = raw
-                    return raw
-                else:
-                    self._last_raw_result = "{}"
-                    return "{}"
+                chat_url = self.api_base.rstrip("/") + "/chat/completions"
+                req = urllib.request.Request(
+                    chat_url,
+                    data=json.dumps({
+                        "model": self.model,
+                        "messages": [{"role": "user", "content": prompt}],
+                        "temperature": config["temperature"],
+                        "max_tokens": config["max_tokens"],
+                    }).encode("utf-8"),
+                    headers={
+                        "Content-Type": "application/json",
+                        "Authorization": f"Bearer {self.api_key}",
+                    },
+                )
+                resp = urllib.request.urlopen(req, timeout=config["timeout"])
+                data = json.loads(resp.read().decode("utf-8"))
+                raw = data["choices"][0]["message"]["content"].strip()
+                self._last_raw_result = raw
+                return raw
             except Exception:
                 if retry == MAX_RETRY:
                     self.healthy = False
