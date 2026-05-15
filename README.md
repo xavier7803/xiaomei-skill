@@ -308,10 +308,10 @@ openclaw gateway restart
 
 - [OpenClaw](https://github.com/openclaw/openclaw) — Agent 运行平台，提供了 subagent 隔离和 skill 管理能力
 - [DeepSeek](https://deepseek.com) — 高性能 LLM API，对话引擎的核心计算资源
-- 凌啡大人 — 项目发起人、产品方向决策者、首席体验官
+- 凌啡 — 项目发起人、产品方向决策者、首席体验官
 
 ---
 
 <p align="center">
-  <sub>用 ❤️ 构建 · 小云 ☁️ · 2026</sub>
+  <sub>用 ❤️ 构建 · 凌啡 · 2026</sub>
 </p>
