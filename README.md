@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/privacy-100%25_local-brightgreen?style=for-the-badge" alt="privacy">
 </p>
 
-<h1 align="center">🥰 小妹（XiaoMei）</h1>
+<h1 align="center">🥰 小妹.skill（xiaomei.skill）</h1>
 
 <p align="center">
   <strong>开源 · 本地 · 纯情绪价值 · AI 情感陪伴 Subagent</strong><br>
