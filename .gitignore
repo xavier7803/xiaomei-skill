@@ -1,0 +1,39 @@
+# ── 运行时用户数据（含真实对话内容）──
+agents/
+src/config/memory/
+src/config/logs/
+src/config/first_launch_completed
+src/config/llm_caller_config.json
+
+# ── 敏感凭据 ──
+*.key
+*.pem
+*.env
+.env.*
+
+# ── Python 缓存 ──
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ── IDE / 编辑器 ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS 杂项 ──
+.DS_Store
+Thumbs.db
+
+# ── 测试缓存 ──
+.pytest_cache/
+htmlcov/
+.coverage
+
+# ── 打包产物（用 GitHub Releases 分发）──
+*.skill

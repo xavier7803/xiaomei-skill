@@ -1,0 +1,9 @@
+{
+  "show_token_cost": false,
+  "daily_limit": 0,
+  "monthly_limit": 0,
+  "warn_threshold": 0.8,
+  "last_reset_date": "2026-04-14",
+  "token_price": 0.0001,
+  "currency": "CNY"
+}

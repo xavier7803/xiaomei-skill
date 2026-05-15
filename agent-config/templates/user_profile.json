@@ -1,0 +1,9 @@
+{
+    "user_id": "default",
+    "dialog_style": "软萌、简洁、温和",
+    "usual_scene": "居家、通勤、休闲",
+    "interact_habit": "日常闲聊、情感分享",
+    "interact_taboo": "",
+    "content_prefer": "",
+    "_comment": "此为初始模板，首次启动时会复制到 ~/.openclaw/agents/xiaomei/user_profile.json。profile_updater 会根据对话数据自动更新。"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "xiaomei",
+  "name": "小妹",
+  "type": "subagent",
+  "runtime": "python",
+  "entryPoint": "/home/admin/.openclaw/skills/xiaomei/src/main.py",
+  "isIsolated": true,
+  "contextIsolation": true,
+  "memoryIsolated": true,
+  "personaPath": "./persona.json",
+  "memoryPath": "./memory/",
+  "logPath": "./logs/",
+  "enabled": true,
+  "workspace": "/home/admin/openclaw/workspace/xiaomei",
+  "autoStart": true,
+  "description": "19岁活泼可爱女大学生，专属情绪陪伴AI"
+}
