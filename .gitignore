@@ -38,3 +38,4 @@ htmlcov/
 # ── 打包产物（用 GitHub Releases 分发）──
 *.skill
 docs/
+.enabled
